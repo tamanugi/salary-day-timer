@@ -1,0 +1,27 @@
+{
+  "name": "salary-day-timer",
+  "version": "1.0.0",
+  "description": "My impressive Nuxt.js project",
+  "author": "tamanugi",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "cross-env": "^5.2.0",
+    "nuxt": "^2.6.1",
+    "ts-node": "^8.0.3",
+    "vue-property-decorator": "^8.1.0"
+  },
+  "devDependencies": {
+    "@nuxt/typescript": "^2.6.1",
+    "nodemon": "^1.18.11",
+    "pug": "^2.0.3",
+    "pug-plain-loader": "^1.0.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2"
+  }
+}
