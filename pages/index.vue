@@ -1,15 +1,23 @@
 <template lang="pug">
-header.container
-  section.content
-    | 給料日
-    input.input-element(v-model="salaryDate" type="text" value="10")
-    | まであと・・・
+.container-wrapper
+  .container
+    section.title-wrapper
+      .title #給料日はよタイマー
+    section.content
+      .left
+        .hoge
+          | 給料日
+          .input-wrapper
+            input(v-model="salaryDate" type="text" value="10")
+          | 日まであと・・・
 
-  section.timer
-    span.count {{ rest.minutes }}
-    span.unit 分
-    span.count {{ rest.seconds }}
-    span.unit 秒
+        .timer
+          span.count {{ rest.seconds }}
+          span.unit 秒
+
+      .right
+        img.salary-bag(src="~assets/background.png")
+
 </template>
 
 <script lang="ts">
@@ -18,89 +26,96 @@ import { Component, Vue } from 'vue-property-decorator'
 @Component
 export default class extends Vue {
   salaryDate: number = 10
-  rest: any = {minutes: 99999, seconds: 99}
+  rest: any = {seconds: -1}
 
   private timer: any
 
   mounted() {
     setInterval(() => {
-      const target = new Date(2019, 5, this.salaryDate, 0, 0, 0).getTime() / 1000
-      const now = new Date().getTime() / 1000
+      const target = new Date(2019, 5, this.salaryDate, 0, 0, 0).getTime()
+      const now = new Date().getTime()
       const r = target - now
-      this.rest.minutes = Math.floor( r / 60 )
-      this.rest.seconds = Math.floor( r % 60 )
-    }, 1000)
+      this.rest.seconds = (r / 1000).toFixed(1)
+    }, 100)
   }
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 
 @font-face {
   font-family: kfhimaji;
   src: url("~assets/fonts/KFhimaji.otf");
 }
 
-html, body, .container {
-  height: 100%;
-}
+.title-wrapper
+  display flex
+  flex-direction  row
+  justify-content flex-end
 
-/* Reset */
-html, body, h1, p, a, div, section {
-  margin: 0;
-  padding: 0;
-  font-size: 100%;
-  font: inherit;
-}
+  .title
+    margin-top 8px
+    margin-right 24px
+    font-size 24px
+    color #404040
+    opacity .2
 
 /* Special */
 .content
-  position absolute
-  top 40%
-  // margin-left 55px;
   font-size: 30px;
   line-height: 23px;
+  display flex
+  flex-direction row
+  justify-content space-around
+  align-content center
+  align-items center
+  
+  .salary-bag
+    width 270px
+    height 510px
 
-body
-  background-image url("~assets/background.png") 
-  background-position center center
-  /* コンテンツの高さが画像の高さより大きい時、動かないように固定 */
-  background-attachment fixed
-  /* 画像を常に天地左右の中央に配置 */
-  background-position center center
-   
-  /* 画像をタイル状に繰り返し表示しない */
-  background-repeat no-repeat
-   
-  /* 表示するコンテナの大きさに基づいて、背景画像を調整 */
-  background-size contain
 
-  margin auto
-  width 1280px
+.container-wrapper
+  display flex
+  align-items center
+  align-content center
+  justify-content center
+  height 100vh
 
+.container
   font-family kfhimaji
   color #404040
 
-// .container
-//   margin 0 auto
-//   width 1280px
+  section
+    margin-left 24px
 
-.timer
-  position absolute
-  top 50%
+.left
 
-  font-size 90px
+  margin-right 80px
 
-  .unit
-    margin-left 8px
-    margin-right 16px
+  .hoge
+    margin-bottom  50px
+  .timer
+    // position absolute
+    // top 50%
+
+    font-size 90px
+
+    .unit
+      margin-left 8px
+      margin-right 16px
+      font-size 32px
+
+.input-wrapper
+  display inline
+  border-bottom solid #404040
+
+  input
+    border none
+    background-color rgba(0, 0, 0, 0)
     font-size 32px
-
-.input-element
-  border none
-  background-color rgba(0, 0, 0, 0)
-  font-size 32px
-  width 48px
-  margin 0 8px
-  font-family kfhimaji
+    width 48px
+    margin 0 4px
+    font-family kfhimaji
+    color #404040
 </style>
